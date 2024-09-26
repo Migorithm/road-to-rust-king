@@ -2,7 +2,9 @@ use std::sync::{LazyLock, RwLock};
 
 use super::product::{JhProduct, Product};
 
-//Command
+// Command
+
+//? 이거 왜 메소드로 안만들고 struct로?
 pub struct AddCartLine {
     pub user_id: u32,
     pub product_id: u32,
