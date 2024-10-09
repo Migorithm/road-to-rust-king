@@ -1,21 +1,21 @@
-use std::sync::{LazyLock, RwLock};
+use std::{
+    fmt::Error,
+    sync::{LazyLock, RwLock},
+};
 
-use super::product::{JhProduct, Product};
+use super::{
+    command::AddCartLine, //? is this right?
+    product::{JhProduct, Product},
+};
 
 // Command
 
-//? 이거 왜 메소드로 안만들고 struct로?
-pub struct AddCartLine {
-    pub user_id: u32,
-    pub product_id: u32,
-    pub quantity: u32,
+pub struct Cart {
+    pub(crate) user_id: u32,
+    pub(crate) total: u32,
+    pub(crate) lines: Vec<CartLine>,
 }
 
-pub struct Cart {
-    user_id: u32,
-    total: u32,
-    lines: Vec<CartLine>,
-}
 impl Cart {
     pub fn add_line(&mut self, command: AddCartLine) {
         let product = Product {
@@ -23,31 +23,17 @@ impl Cart {
             kind: JhProduct::ChocoDonut,
             price: 1000,
         };
+
         let line = CartLine {
             product,
             quantity: command.quantity,
         };
+
         self.lines.push(line);
     }
 }
 
 pub struct CartLine {
-    product: Product,
-    quantity: u32,
-}
-
-pub static FAKE_CART_DB: LazyLock<RwLock<CartDb>> = LazyLock::new(Default::default);
-
-#[derive(Default)]
-pub struct CartDb {
-    carts: Vec<Cart>,
-}
-
-impl CartDb {
-    pub fn find_by_user_id(&mut self, user_id: u32) -> &mut Cart {
-        self.carts
-            .iter_mut()
-            .find(|c| c.user_id == user_id)
-            .unwrap()
-    }
+    pub(crate) product: Product,
+    pub(crate) quantity: u32,
 }

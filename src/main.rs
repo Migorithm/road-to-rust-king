@@ -6,8 +6,9 @@
 // Transaction -> Payment
 // 판매가 된 것들은 어떻게 관리할것인가?  -> Service
 
-use models::cart::{AddCartLine, FAKE_CART_DB};
+use models::command::AddCartLine;
 
+pub mod db;
 mod models;
 
 fn main() {
@@ -21,10 +22,10 @@ fn main() {
         quantity: 1,
     };
 
-    let mut cart_db = FAKE_CART_DB.write().unwrap();
+    // let mut cart_db = db.FAKE
 
-    let cart = cart_db.find_by_user_id(account_id);
-    cart.add_line(add_cart_line_command);
+    // let cart = cart_db.find_by_user_id(account_id);
+    // cart.add_line(add_cart_line_command);
 
     // Q. do we have to create a cart?
     // Q. how do we add cart line to the cart?
