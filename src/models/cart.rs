@@ -4,7 +4,7 @@ use std::{
 };
 
 use super::{
-    command::AddCartLine, //? is this right?
+    command::{AddCartLine, UpdateCartLine}, //? is this right?
     product::{JhProduct, Product},
 };
 
@@ -18,6 +18,15 @@ pub struct Cart {
 
 impl Cart {
     pub fn add_line(&mut self, command: AddCartLine) {
+        let line = CartLine {
+            productId: command.product_id,
+            quantity: command.quantity,
+        };
+
+        self.lines.push(line);
+    }
+
+    pub fn update_line(&mut self, command: UpdateCartLine) {
         let line = CartLine {
             productId: command.product_id,
             quantity: command.quantity,

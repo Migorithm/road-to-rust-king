@@ -3,7 +3,7 @@ use std::{
     sync::{LazyLock, RwLock},
 };
 
-use crate::models::cart::Cart;
+use crate::models::cart::{Cart, CartLine};
 
 pub static FAKE_CART_DB: LazyLock<RwLock<CartDb>> = LazyLock::new(Default::default);
 
@@ -25,7 +25,7 @@ impl CartDb {
     // TODO: Application 레벨에서 Error 구현하기
     // TODO: DB단에 Business Logic 넣지 말기 (진짜 DB Operation에서 예상되는 것만!! -- Model이랑 분리!!)
 
-    pub fn insert(&mut self, user_id: u32) -> Result<(), Error> {
+    pub fn create(&mut self, user_id: u32) -> Result<(), Error> {
         let cart = Cart {
             user_id,
             total: 0,
@@ -33,6 +33,51 @@ impl CartDb {
         };
 
         self.carts.push(cart); //? erorr handling?
+
+        Ok(())
+    }
+
+    pub fn insert_line(&mut self, cart: &mut Cart, line: CartLine) -> Result<(), Error> {
+        let line_index = cart.lines.iter_mut().enumerate().find_map(|(index, l)| {
+            if l.productId == line.productId {
+                Some(index)
+            } else {
+                None
+            }
+        });
+
+        if let Some(index) = line_index {
+            cart.lines[index].quantity += line.quantity;
+            Ok(())
+        } else {
+            cart.lines.push(line);
+            Ok(())
+        }
+    }
+
+    pub fn update_line(
+        &mut self,
+        cart: &mut Cart,
+        product_id: u32,
+        quantity: u32,
+    ) -> Result<(), Error> {
+        //? 이렇게 하는게 맞나?
+        let line_index = cart.lines.iter_mut().enumerate().find_map(|(index, l)| {
+            if l.productId == product_id {
+                Some(index)
+            } else {
+                None
+            }
+        });
+
+        if let Some(index) = line_index {
+            let line = &mut cart.lines[index];
+            if quantity > 0 {
+                line.quantity = quantity;
+            } else {
+                cart.lines.remove(index);
+            }
+        }
 
         Ok(())
     }
