@@ -34,3 +34,14 @@ fn main() {
 
     // get donut
 }
+
+/*
+    db <> backend ? -> who throws error?
+    command ?
+
+    how user is created/deleted?
+
+    how do we express the "payment/order"?
+
+    cart impl <> db
+*/

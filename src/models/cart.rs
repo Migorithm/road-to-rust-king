@@ -19,7 +19,7 @@ pub struct Cart {
 impl Cart {
     pub fn add_line(&mut self, command: AddCartLine) {
         let line = CartLine {
-            productId: command.product_id,
+            product_id: command.product_id,
             quantity: command.quantity,
         };
 
@@ -28,7 +28,7 @@ impl Cart {
 
     pub fn update_line(&mut self, command: UpdateCartLine) {
         let line = CartLine {
-            productId: command.product_id,
+            product_id: command.product_id,
             quantity: command.quantity,
         };
 
@@ -37,6 +37,6 @@ impl Cart {
 }
 
 pub struct CartLine {
-    pub(crate) productId: u32,
+    pub(crate) product_id: u32,
     pub(crate) quantity: u32,
 }

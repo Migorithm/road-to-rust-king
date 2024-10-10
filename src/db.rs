@@ -39,7 +39,7 @@ impl CartDb {
 
     pub fn insert_line(&mut self, cart: &mut Cart, line: CartLine) -> Result<(), Error> {
         let line_index = cart.lines.iter_mut().enumerate().find_map(|(index, l)| {
-            if l.productId == line.productId {
+            if l.product_id == line.product_id {
                 Some(index)
             } else {
                 None
@@ -63,7 +63,7 @@ impl CartDb {
     ) -> Result<(), Error> {
         //? 이렇게 하는게 맞나?
         let line_index = cart.lines.iter_mut().enumerate().find_map(|(index, l)| {
-            if l.productId == product_id {
+            if l.product_id == product_id {
                 Some(index)
             } else {
                 None
