@@ -8,8 +8,7 @@ use super::{
     product::{JhProduct, Product},
 };
 
-// Command
-
+#[derive(Clone, Debug)]
 pub struct Cart {
     pub(crate) user_id: u32,
     pub(crate) total: u32,
@@ -36,7 +35,21 @@ impl Cart {
     }
 }
 
+#[derive(Clone, Debug)]
 pub struct CartLine {
     pub(crate) product_id: u32,
     pub(crate) quantity: u32,
+}
+
+impl CartLine {
+    pub fn new(product_id: u32, quantity: u32) -> Self {
+        Self {
+            product_id,
+            quantity,
+        }
+    }
+
+    pub fn update_quantity(&mut self, quantity: u32) {
+        self.quantity = quantity;
+    }
 }
