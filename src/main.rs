@@ -36,12 +36,18 @@ fn main() {
 }
 
 /*
-    db <> backend ? -> who throws error?
-    command ?
+    - db <> backend ? -> who throws error?
+    - command ?
 
-    how user is created/deleted?
+    - how user is created/deleted?
 
-    how do we express the "payment/order"?
+    - how do we express the "payment/order"?
 
-    cart impl <> db
+    - cart impl <> db c   i
+
+    - Cartlines -> copy when order
+
+    - order is cleared only when payment completed
+
+    - if not, push back to cart
 */
