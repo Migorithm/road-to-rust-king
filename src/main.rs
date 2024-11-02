@@ -1,3 +1,8 @@
+use std::sync::{Arc, Mutex};
+
+use db::db::CartDb;
+use model::cart::Cart;
+
 // Donut store
 // 내가 뭘 팔것인가? -> Product
 // - Cheese Donut
@@ -5,49 +10,20 @@
 // - Glazed Donut
 // Transaction -> Payment
 // 판매가 된 것들은 어떻게 관리할것인가?  -> Service
-
-use models::command::AddCartLine;
+#[macro_use]
+extern crate lazy_static;
 
 pub mod db;
-mod models;
+pub mod model;
+pub mod repository;
+mod error;
+pub mod Error;
+pub mod service;
 
-fn main() {
-    // Given - user exists already...
-    let account_id = 1;
-
-    // choose donut and put in the cart - command
-    let add_cart_line_command = AddCartLine {
-        user_id: account_id,
-        product_id: 1,
-        quantity: 1,
-    };
-
-    // let mut cart_db = db.FAKE
-
-    // let cart = cart_db.find_by_user_id(account_id);
-    // cart.add_line(add_cart_line_command);
-
-    // Q. do we have to create a cart?
-    // Q. how do we add cart line to the cart?
-
-    // pay for donut
-
-    // get donut
+lazy_static! {
+    static ref DB: Arc<Mutex<CartDb>> = Arc::new(Mutex::new(CartDb::new()));
 }
 
-/*
-    - db <> backend ? -> who throws error?
-    - command ?
-
-    - how user is created/deleted?
-
-    - how do we express the "payment/order"?
-
-    - cart impl <> db c   i
-
-    - Cartlines -> copy when order
-
-    - order is cleared only when payment completed
-
-    - if not, push back to cart
-*/
+fn main() {
+    todo!()
+}
