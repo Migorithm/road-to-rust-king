@@ -1,7 +1,6 @@
 use std::sync::{Arc, Mutex};
 
 use db::db::CartDb;
-use model::cart::Cart;
 
 // Donut store
 // 내가 뭘 팔것인가? -> Product
