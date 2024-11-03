@@ -14,10 +14,9 @@ use model::cart::Cart;
 extern crate lazy_static;
 
 pub mod db;
+mod error;
 pub mod model;
 pub mod repository;
-mod error;
-pub mod Error;
 pub mod service;
 
 lazy_static! {
