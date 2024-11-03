@@ -2,7 +2,7 @@ use super::cart::Cart;
 
 #[derive(Debug, Clone)]
 pub struct CreateCart {
-    pub user_id: u32,
+    pub new_cart: Cart,
 }
 
 #[derive(Debug, Clone)]
